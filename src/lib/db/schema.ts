@@ -43,3 +43,9 @@ export const messages = pgTable('messages', {
     createdAt: timestamp('created_at').notNull().defaultNow(),
     role: userSystemEnum('role').notNull()
 })
+/* to push to NEON database we need to also use drizzle kit 
+ there's two parts to drizzle, there's drizzle-orm package itself and
+ drizzle-kit provides us with utility functions to create migrations and to make sure that all our database is synced up with this schema here
+ so basically drizzle-kit is a way to push it up
+ 
+*/
