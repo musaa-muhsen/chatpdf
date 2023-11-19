@@ -36,13 +36,16 @@ export const chats = pgTable('chats', {
 //chatId is to perform the one to many relations, the integer so this is from pgcore itself
 // the reference function is taking the callback function and it just returns the chat's ID. 
 // if the row is user or system aka ai 
-export const messages = pgTable('messages', {
-    id: serial('id').primaryKey(),
-    chatId: integer('chat_id').reference(() => chats.id).notNull(),
-    content: ('content').notNull(),
-    createdAt: timestamp('created_at').notNull().defaultNow(),
-    role: userSystemEnum('role').notNull()
+export const messages = pgTable("messages", {
+    id: serial("id").primaryKey(),
+    chatId: integer("chat_id")
+    .references(() => chats.id)
+    .notNull(),
+    content: text("content").notNull(),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+    role: userSystemEnum("role").notNull(),
 })
+
 /* to push to NEON database we need to also use drizzle kit 
  there's two parts to drizzle, there's drizzle-orm package itself and
  drizzle-kit provides us with utility functions to create migrations and to make sure that all our database is synced up with this schema here
